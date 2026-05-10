@@ -8,6 +8,12 @@ import p2 from "@/assets/product-2.jpg";
 import p3 from "@/assets/product-3.jpg";
 import p4 from "@/assets/product-4.jpg";
 
+import { useEffect } from "react";
+import { fetchPagina } from "../utils/fetchPagina";
+import { parseContent } from "../utils/parseContent";
+
+type Conteudo = ReturnType<typeof parseContent>;
+
 const benefits = [
   { icon: Droplets, title: "Irrigação Automática", desc: "Sistema inteligente que rega suas plantas no momento exato com a quantidade certa de água." },
   { icon: Cpu, title: "Sensores de Solo", desc: "Monitoramento contínuo de umidade, pH e nutrientes para um cultivo sempre saudável." },
@@ -23,6 +29,21 @@ const products = [
 
 const Index = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+
+  const [conteudo, setConteudo] = useState<Conteudo | null>(null);
+
+  useEffect(() => {
+    fetchPagina("pagina-1")
+      .then(pagina => {
+        // fetchPagina trouxe o JSON completo da página
+        // parseContent separa o HTML em paragrafos, titulos, imagens...
+        const elementos = parseContent(pagina.content.rendered);
+        setConteudo(elementos);
+      })
+      .catch(() => {
+        console.warn("Não foi possível buscar o conteúdo do WordPress.");
+      });
+  }, []);
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
