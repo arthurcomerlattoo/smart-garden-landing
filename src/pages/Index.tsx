@@ -39,8 +39,6 @@ const Index = () => {
         // parseContent separa o HTML em paragrafos, titulos, imagens...
         const elementos = parseContent(pagina.content.rendered);
         setConteudo(elementos);
-
-        console.log("O que o WP trouxe:", elementos); //apagar dps
       })
       .catch(() => {
         console.warn("Não foi possível buscar o conteúdo do WordPress.");
@@ -81,10 +79,10 @@ const Index = () => {
               <Leaf className="w-4 h-4" /> Cultivo inteligente em casa
             </div>
             <h1 className="text-5xl md:text-6xl font-bold leading-tight tracking-tight">
-              Sua horta que <span className="bg-clip-text text-transparent" style={{ backgroundImage: "var(--gradient-hero)" }}>cuida sozinha</span> de você.
+              {conteudo?.titulos[0]?.textContent}
             </h1>
             <p className="text-lg text-muted-foreground max-w-lg">
-              Alimentos frescos o ano inteiro, sem terra, sem sujeira e sem esforço. A tecnologia faz tudo — você só colhe.
+              {conteudo?.paragrafos[0]?.textContent}
             </p>
             <div className="flex flex-wrap gap-4 pt-2">
               <Button size="lg" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-[var(--shadow-soft)]">
@@ -107,8 +105,8 @@ const Index = () => {
       <section id="beneficios" className="py-24 bg-background">
         <div className="container mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Tecnologia que faz brotar</h2>
-            <p className="text-muted-foreground text-lg">Três sistemas trabalhando 24/7 para o cultivo perfeito.</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">{conteudo?.titulos[1]?.textContent}</h2>
+            <p className="text-muted-foreground text-lg">{conteudo?.paragrafos[1]?.textContent}</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {benefits.map((b) => (
@@ -128,8 +126,8 @@ const Index = () => {
       <section id="galeria" className="py-24 bg-secondary/40">
         <div className="container mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Do plantio à colheita</h2>
-            <p className="text-muted-foreground text-lg">O que você pode cultivar com a Verdee.</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">{conteudo?.titulos[2]?.textContent}</h2>
+            <p className="text-muted-foreground text-lg">{conteudo?.paragrafos[2]?.textContent}</p>
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
             {products.map((p) => (
@@ -148,8 +146,8 @@ const Index = () => {
       <section id="contato" className="py-24 bg-background">
         <div className="container mx-auto max-w-2xl">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Vamos plantar essa ideia?</h2>
-            <p className="text-muted-foreground text-lg">Deixe seu contato e receba uma demonstração.</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">{conteudo?.titulos[3]?.textContent}</h2>
+            <p className="text-muted-foreground text-lg">{conteudo?.paragrafos[3]?.textContent}</p>
           </div>
           <form onSubmit={submit} className="space-y-4 p-8 rounded-3xl bg-card border border-border shadow-[var(--shadow-soft)]">
             <input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })}
