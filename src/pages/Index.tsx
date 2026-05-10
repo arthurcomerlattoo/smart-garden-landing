@@ -39,6 +39,8 @@ const Index = () => {
         // parseContent separa o HTML em paragrafos, titulos, imagens...
         const elementos = parseContent(pagina.content.rendered);
         setConteudo(elementos);
+
+        console.log("O que o WP trouxe:", elementos); //apagar dps
       })
       .catch(() => {
         console.warn("Não foi possível buscar o conteúdo do WordPress.");
